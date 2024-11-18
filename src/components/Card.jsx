@@ -39,7 +39,7 @@ const Card = function ({ number, title, price, cookieStore }) {
           {price || '0₽'}
         </p>
         <button
-          onClick={handleAddCake}
+          // onClick={handleAddCake}
           className='min-[360px]:px-5 min-[420px]:px-8 min-[470px]:px-6 py-3 min-[470px]:mb-3 bg-white min-[470px]:rounded-3xl text-xs sm:text-sm hover:bg-gray-100  transition ease-in-out delay-100'
         >
           Добавить в корзину
