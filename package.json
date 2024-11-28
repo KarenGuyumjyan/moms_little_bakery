@@ -5,13 +5,11 @@
   "homepage": "https://karenguyumjyan.github.io",
   "scripts": {
     "dev": "next dev",
+    "build": "next build",
     "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "export": "next export",
+    "start": "next start"
   },
   "dependencies": {
     "@next/font": "^14.2.15",

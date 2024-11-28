@@ -1,6 +1,7 @@
 import Header from '@/components/Header'
 import './globals.css'
 import { Great_Vibes, IBM_Plex_Serif } from 'next/font/google'
+import { CounterProvider } from '@/utils/CounterContext'
 
 const greatVibes = Great_Vibes({
   subsets: ['latin'],
@@ -26,8 +27,10 @@ export default function RootLayout({ children }) {
       <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       <link rel='icon' href='/moms_logo.png' type='image/png' />
       <body className={`${greatVibes.className} ${ibm.className}`}>
-        <Header />
-        {children}
+        <CounterProvider>
+          <Header />
+          {children}
+        </CounterProvider>
       </body>
     </html>
   )

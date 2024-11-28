@@ -4,20 +4,33 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import DrawerCart from './DrawerCart'
+import { useCounter } from '@/utils/CounterContext'
 
 const Header = () => {
+  const [openDrawer, setOpenDrawer] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const { updateCount, count } = useCounter()
   const router = useRouter()
   const pathname = usePathname()
 
+  const handleOpenDrawer = () => {
+    setOpenDrawer((prev) => !prev)
+    if (!openDrawer) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }
+
   useEffect(() => {
-    // Animate scroll to top on page load/refresh
+    updateCount()
     setTimeout(() => {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth', // Smooth scroll effect
+        behavior: 'smooth',
       })
-    }, 100) // Slight delay to ensure the page has fully loaded before scrolling
+    }, 100)
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0)
@@ -31,46 +44,53 @@ const Header = () => {
   }, [])
 
   return (
-    <div
-      className={`fixed top-0 w-full z-10 py-4 flex justify-between items-center font-greatVibes px-4 sm:px-8 md:justify-around transition-all duration-500 ${
-        isScrolled ? 'bg-purple-50 opacity-100' : 'bg-transparent opacity-80'
-      }`}
-    >
-      <Image
-        src='/moms_logo.png'
-        alt="Mom's Little Bakery"
-        width={50}
-        height={32}
-        priority
-        className='cursor-pointer'
-        onClick={() => router.push('/')}
-      />
-      <div className='flex flex-grow justify-center'>
-        <div className='flex gap-5 sm:gap-7 md:gap-10 lg:gap-14 text-xl sm:text-2xl lg:text-4xl font-bold'>
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`pb-2 ${
-                pathname === href
-                  ? 'border-b-2 border-pink-400 text-pink-400'
-                  : ''
-              }`}
-            >
-              {label}
-            </Link>
-          ))}
+    <>
+      <div
+        className={`fixed top-0 w-full z-10 py-4 flex justify-between items-center px-4 sm:px-8 md:justify-around transition-all duration-500 opacity-100 ${
+          isScrolled || openDrawer
+            ? 'bg-purple-50 '
+            : 'bg-purple-50 min-[470px]:bg-transparent'
+        }`}
+      >
+        {openDrawer && <DrawerCart handleOpenDrawer={handleOpenDrawer} />}
+        <Image
+          src='/moms_logo.png'
+          alt="Mom's Little Bakery"
+          width={50}
+          height={32}
+          priority
+          className='cursor-pointer'
+          onClick={() => router.push('/')}
+        />
+        <div className='flex flex-grow justify-center font-greatVibes'>
+          <div className='flex gap-5 sm:gap-7 md:gap-10 lg:gap-14 text-xl sm:text-2xl lg:text-4xl font-bold'>
+            {NAV_LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`pb-2 ${
+                  pathname === href
+                    ? 'border-b-2 border-pink-400 text-pink-400'
+                    : ''
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className='relative cursor-pointer' onClick={handleOpenDrawer}>
+          <Image src='/bask.svg' alt='Basket' width={36} height={36} priority />
+          <p
+            className={` ${
+              count < 10 ? 'px-2' : 'px-1'
+            } py-1 absolute text-xs left-5 top-4 bg-pink-300 rounded-full`}
+          >
+            {count}
+          </p>
         </div>
       </div>
-      <Image
-        src='/bask.svg'
-        alt='Basket'
-        width={36}
-        height={36}
-        priority
-        className='cursor-pointer'
-      />
-    </div>
+    </>
   )
 }
 
