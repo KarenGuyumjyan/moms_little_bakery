@@ -69,40 +69,31 @@ const ProductModal = ({ modalData, closeModal }) => {
         <p className='text-sm text-gray-600 mt-4 text-center sm:text-left'>
           {modalData.description}
         </p>
-        <div className='mt-6 text-center flex gap-4 flex-col sm:flex-row justify-between items-center'>
-          {/* <div className='flex text-sm justify-center items-center gap-3'>
-            <button
-              className='px-[9px] rounded-full bg-gray-300 cursor-pointer'
-              onClick={() => count > 1 && setCount(count - 1)}
-            >
-              -
-            </button>
-            <span className='text-lg'>{count}</span>
-            <button
-              className='px-2 rounded-full bg-gray-300 cursor-pointer'
-              onClick={() => setCount(count + 1)}
-            >
-              +
-            </button>
-          </div> */}
-          <div className='text-xs flex '>
-            <button
-              className={`${
-                size === 'small' ? 'bg-pink-400 ' : 'bg-pink-100 '
-              } p-2 rounded-l-lg min-w-24`}
-              onClick={() => setSize('small')}
-            >
-              Маленький
-            </button>
-            <button
-              className={`${
-                size === 'big' ? 'bg-pink-400' : 'bg-pink-100'
-              } p-2 rounded-r-lg min-w-24`}
-              onClick={() => setSize('big')}
-            >
-              Большой
-            </button>
-          </div>
+        <div
+          className={`mt-6 text-center flex gap-4 flex-col sm:flex-row ${
+            modalData.priceBig ? 'justify-between' : 'justify-center'
+          } items-center`}
+        >
+          {modalData.priceBig && (
+            <div className='text-xs flex '>
+              <button
+                className={`${
+                  size === 'small' ? 'bg-pink-400 ' : 'bg-pink-100 '
+                } p-2 rounded-l-lg min-w-24`}
+                onClick={() => setSize('small')}
+              >
+                Маленький
+              </button>
+              <button
+                className={`${
+                  size === 'big' ? 'bg-pink-400' : 'bg-pink-100'
+                } p-2 rounded-r-lg min-w-24`}
+                onClick={() => setSize('big')}
+              >
+                Большой
+              </button>
+            </div>
+          )}
           <button
             onClick={handleAddCake}
             className='bg-primary text-base text-black px-4z py-2 rounded-md hover:bg-primary-dark transition active:bg-zinc-300'

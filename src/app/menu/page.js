@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Footer from '@/components/Footer'
 import ProductModal from '@/components/ProductModal'
-import { cakesList } from '@/utils/constants'
+import { cakesList, smallCakes } from '@/utils/constants'
 import { togleNewCake } from '@/utils/togleNewCake'
 import { useCounter } from '@/utils/CounterContext'
 
@@ -34,9 +34,9 @@ const cakesListSection = () => {
             </h1>
           </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
-            {cakesList.map((product) => (
+            {[...cakesList, ...smallCakes].map((product) => (
               <div
-                key={product.id}
+                key={product.id + product.title}
                 className='bg-white rounded-lg shadow-md flex flex-col'
               >
                 <div
