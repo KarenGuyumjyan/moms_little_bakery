@@ -7,7 +7,7 @@ export const NAV_LINKS = [
 export const cakesList = [
   {
     id: 1,
-    title: 'Чизкейк Карамельный',
+    title: 'ЧИЗКЕЙК КАРАМЕЛЬНЫЙ',
     price: '3300',
     priceBig: '4000',
     image: '/Cake_1.jpg',
@@ -52,7 +52,7 @@ export const cakesList = [
   },
   {
     id: 6,
-    title: 'Чизкейк Нью-Йорк',
+    title: 'ЧИЗКЕЙК НЬЮ-ЙОРК',
     price: '3200',
     priceBig: '4000',
     image: '/Cake_6.jpg',

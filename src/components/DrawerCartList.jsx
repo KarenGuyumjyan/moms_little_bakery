@@ -1,14 +1,15 @@
-import { cakesList } from '@/utils/constants'
+import { cakesList, smallCakes } from '@/utils/constants'
 import DrawerCartItem from './DrawerCartItem'
 
 const DrawerCartList = ({removeCakeFromBag, getTotalPrice}) => {
+  const allCakes = [...cakesList, ...smallCakes]
   return (
     <div className='flex flex-col gap-4'>
       {localStorage.getItem('cakes') &&
         JSON.parse(localStorage.cakes).map((cake, index) => (
           <DrawerCartItem
-            key={index}
-            cake={cakesList[cake.id-1]}
+            key={cake.id}
+            cake={allCakes[cake.id-1]}
             count={cake.count}
             size={cake.size}
             removeCakeFromBag={removeCakeFromBag}

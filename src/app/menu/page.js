@@ -10,6 +10,7 @@ import { useCounter } from '@/utils/CounterContext'
 const cakesListSection = () => {
   const { updateCount } = useCounter()
   const [modalData, setModalData] = useState(null)
+  const [section, setSection] = useState(1)
 
   const openModal = (product) => {
     setModalData(product)
@@ -24,6 +25,13 @@ const cakesListSection = () => {
     updateCount()
   }
 
+  const showCakes =
+    section === 1
+      ? [...cakesList, ...smallCakes]
+      : section === 2
+      ? cakesList
+      : smallCakes
+
   return (
     <>
       <div className='bg-light my-12 py-12'>
@@ -33,8 +41,44 @@ const cakesListSection = () => {
               Изучите категории нашей выпечки
             </h1>
           </div>
+          <div className='flex items-center justify-between pb-8 flex-col-reverse min-[520px]:flex-row gap-8'>
+            <h1 className='text-xl md:text-2xl font-bold'>
+              {section === 1
+                ? 'Все Торты'
+                : section === 2
+                ? 'Торты'
+                : 'Десерты'}
+            </h1>
+            <div className='flex justify-center md:justify-end gap-4'>
+              <button
+                onClick={() => setSection(1)}
+                className={`min-[330px]:px-3 min-[360px]:px-5 min-[420px]:px-8 min-[470px]:px-6 min-[420px]:py-3 py-2 ${
+                  section === 1 ? 'bg-pink-400' : 'bg-pink-200'
+                } rounded-3xl text-sm hover:bg-pink-400  transition ease-in-out delay-100 self-center`}
+              >
+                Все Торты
+              </button>
+              <button
+                onClick={() => setSection(2)}
+                className={`min-[330px]:px-3 min-[360px]:px-5 min-[420px]:px-8 min-[470px]:px-6 min-[420px]:py-3 py-2 ${
+                  section === 2 ? 'bg-pink-400' : 'bg-pink-200'
+                } rounded-3xl text-sm hover:bg-pink-400  transition ease-in-out delay-100 self-center`}
+              >
+                Торты
+              </button>
+              <button
+                onClick={() => setSection(3)}
+                className={`min-[330px]:px-3 min-[360px]:px-5 min-[420px]:px-8 min-[470px]:px-6 min-[420px]:py-3 py-2 ${
+                  section === 3 ? 'bg-pink-400' : 'bg-pink-200'
+                } rounded-3xl text-sm hover:bg-pink-400  transition ease-in-out delay-100 self-center`}
+              >
+                Десерты
+              </button>
+            </div>
+          </div>
+
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
-            {[...cakesList, ...smallCakes].map((product) => (
+            {showCakes.map((product) => (
               <div
                 key={product.id + product.title}
                 className='bg-white rounded-lg shadow-md flex flex-col'

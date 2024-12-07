@@ -41,7 +41,7 @@ const DrawerCartItem = ({
       </div>
       <div className='w-20 h-20 rounded-lg overflow-hidden relative'>
         <Image
-          src={cake.image}
+          src={cake.image ?? '/Cake_2.jpg'}
           alt={cake.title}
           layout='intrinsic'
           width={500}
@@ -53,7 +53,12 @@ const DrawerCartItem = ({
 
       <div className='flex flex-col justify-between'>
         <p className='2xs:w-[150px] xs:w-fit text-right text-xs leading-4'>
-          {cake.title} - {size === 'big' ? 'Большой' : 'Маленький'}
+          {cake.title}
+          {cake.priceBig && (
+            <span className='font-bold'>
+              {size === 'big' ? ' - Большой' : ' - Маленький'}
+            </span>
+          )}
         </p>
         <div className='flex text-sm justify-end items-center gap-3'>
           <span className='font-bold text-base '>
