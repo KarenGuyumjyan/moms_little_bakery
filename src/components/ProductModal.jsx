@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useCounter } from '@/utils/CounterContext'
 import { togleNewCake } from '@/utils/togleNewCake'
+import { Plus, ShoppingCart } from 'lucide-react'
 
 const ProductModal = ({ modalData, closeModal }) => {
   // const [count, setCount] = useState(1)
@@ -60,12 +61,25 @@ const ProductModal = ({ modalData, closeModal }) => {
             className='w-full h-full object-cover absolute sm:-top-10 -top-24'
           />
         </div>
-        <h3 className='text-4xl font-semibold mt-4 text-center sm:text-left'>
+        <h3 className='text-3xl font-semibold mt-4 text-center'>
           {modalData.title}
         </h3>
-        <p className='text-primary font-bold text-lg mt-2 text-center sm:text-left'>
-          {size === 'big' ? modalData.priceBig : modalData.price}₽
-        </p>
+        <div className='w-full text-primary text-sm mt-4 border-t border-b border-gray-400 text-gray-500'>
+          <div className='flex justify-around'>
+            <div className='flex flex-col items-center'>
+              <p>вес</p>
+              <p>230 г</p>
+            </div>
+            <div className='flex flex-col items-center'>
+              <p>куски</p>
+              <p>12</p>
+            </div>
+            <div className='flex flex-col items-center'>
+              <p>ккал</p>
+              <p>120</p>
+            </div>
+          </div>
+        </div>
         <p className='text-sm text-gray-600 mt-4 text-center sm:text-left'>
           {modalData.description}
         </p>
@@ -82,7 +96,7 @@ const ProductModal = ({ modalData, closeModal }) => {
                 } p-2 rounded-l-lg min-w-24`}
                 onClick={() => setSize('small')}
               >
-                Маленький
+                Стандартный
               </button>
               <button
                 className={`${
@@ -96,9 +110,10 @@ const ProductModal = ({ modalData, closeModal }) => {
           )}
           <button
             onClick={handleAddCake}
-            className='bg-primary text-base text-black px-4z py-2 rounded-md hover:bg-primary-dark transition active:bg-zinc-300'
+            className='p-2 px-4 bg-gray-200 text-primary font-bold text-center sm:text-left bg-primary text-base text-black px-4z py-2 rounded-md hover:bg-primary-dark transition active:bg-zinc-300 flex items-center gap-2'
           >
-            Добавить в корзину
+            {size === 'big' ? modalData.priceBig : modalData.price}₽
+            <Plus size={16} />
           </button>
         </div>
       </div>

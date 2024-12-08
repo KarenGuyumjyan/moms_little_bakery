@@ -1,9 +1,11 @@
 'use client'
+import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 
 const Card = function ({ cake, openModal }) {
   return (
     <div
+      onClick={() => openModal(cake)}
       className={
         'relative flex flex-col justify-end items-center gap-2 text-lg font-medium p-4 cursor-pointer'
       }
@@ -21,14 +23,16 @@ const Card = function ({ cake, openModal }) {
           {cake.title || 'Название'}
         </p>
         <p className='text-center text-sm sm:text-base md:text-lg hidden sm:block'>
-          {cake.price  || '0'}₽
+          {cake.price || '0'}₽
         </p>
-        <button
-          onClick={() => openModal(cake)}
-          className='min-[330px]:px-3 min-[360px]:px-5 min-[420px]:px-8 min-[470px]:px-6 min-[420px]:py-3 py-2 mb-3 bg-white rounded-3xl text-xs sm:text-sm hover:bg-gray-100  transition ease-in-out delay-100 self-center'
-        >
+        <button className='min-[330px]:px-3 min-[360px]:px-5 min-[420px]:px-8 min-[470px]:px-6 min-[420px]:py-3 py-2 mb-3 bg-white rounded-3xl text-xs sm:text-sm hover:bg-gray-100  transition ease-in-out delay-100 self-center'>
           Просмотреть
         </button>
+
+        {/* <button className='min-[330px]:px-3 min-[360px]:px-5 min-[420px]:px-8 min-[470px]:px-6 min-[420px]:py-3 py-2 mb-3 bg-white rounded-3xl text-xs sm:text-sm hover:bg-gray-100  transition ease-in-out delay-100 self-center flex items-center gap-2'>
+          {cake.title}
+          <ShoppingCart size={20}/>
+        </button> */}
       </div>
     </div>
   )

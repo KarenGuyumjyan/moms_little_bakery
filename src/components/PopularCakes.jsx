@@ -17,7 +17,7 @@ const PopularCakes = () => {
 
   return (
     <>
-      <p className='text-3xl sm:text-4xl lg:text-5xl'>Популярные Торты</p>
+      <p className='text-3xl sm:text-4xl lg:text-5xl'>Торты</p>
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  sm:gap-6 lg:gap-8 px-4 sm:px-8 pb-12'>
         {cakesList.map((cake, index) => (
           <Card key={index} cake={cake} openModal={openModal} />

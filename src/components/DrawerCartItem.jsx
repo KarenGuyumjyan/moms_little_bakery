@@ -56,7 +56,7 @@ const DrawerCartItem = ({
           {cake.title}
           {cake.priceBig && (
             <span className='font-bold'>
-              {size === 'big' ? ' - Большой' : ' - Маленький'}
+              {size === 'big' ? ' - Большой' : ' - Стандартный'}
             </span>
           )}
         </p>

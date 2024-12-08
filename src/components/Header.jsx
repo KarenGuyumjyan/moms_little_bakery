@@ -62,15 +62,15 @@ const Header = () => {
           className='cursor-pointer'
           onClick={() => router.push('/')}
         />
-        <div className='flex flex-grow justify-center font-greatVibes'>
-          <div className='flex gap-5 sm:gap-7 md:gap-10 lg:gap-14 text-xl sm:text-2xl lg:text-4xl font-bold'>
+        <div className='flex flex-grow justify-center'>
+          <div className='flex gap-5 sm:gap-7 md:gap-10 lg:gap-14 text-lg sm:text-2xl lg:text-3xl font-bold'>
             {NAV_LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
                 className={`pb-2 ${
                   pathname === href
-                    ? 'border-b-2 border-pink-400 text-pink-400'
+                    ? 'border-b-2 border-pink-400 text-pink-500'
                     : ''
                 }`}
               >

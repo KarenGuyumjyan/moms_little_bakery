@@ -5,7 +5,7 @@ import FooterSocialLinks from './FooterSocialLinks'
 
 const Footer = () => {
   return (
-    <div className="relative bg-purple-100 w-full px-10 md:px-20 lg:px-40 pt-16 pb-8 text-black">
+    <div className="relative bg-pink-100 w-full px-10 md:px-20 lg:px-40 pt-16 pb-8 text-black">
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start">
         <FooterLogo />
         <div className="flex flex-col md:flex-row md:justify-between mt-8 lg:mt-0 w-full lg:w-auto lg:ml-8 gap-8 md:gap-16">
