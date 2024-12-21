@@ -4,7 +4,7 @@ const WelcomeSection = () => {
   return (
     <div className="w-full relative md:pb-12 pb-0 ">
       <Image
-        src="/Welcome.jpeg"
+        src="/WelcomeHome.jpeg"
         alt="Home"
         width={1200}
         height={400}
