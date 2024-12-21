@@ -6,6 +6,7 @@ import { InstagramIcon } from './InstagramIcon'
 import { WhatsAppIcon } from './WhatsAppIcon'
 import { SignIcon } from './SignIcon'
 import { CloseIcon } from './CloseIcon'
+import { TelegramIcon } from './TelegramIcon'
 
 export const ICONS = {
   MailIcon,
@@ -16,4 +17,5 @@ export const ICONS = {
   WhatsAppIcon,
   SignIcon,
   CloseIcon,
+  TelegramIcon
 }

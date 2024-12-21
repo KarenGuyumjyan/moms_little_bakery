@@ -1,5 +1,5 @@
 'use client'
-import { cakesList, smallCakes } from '@/utils/constants'
+import { cakesList, smallCakes, pieceCakes } from '@/utils/constants'
 import { useCounter } from '@/utils/CounterContext'
 import { removeCake } from '@/utils/removeCake'
 import { useEffect, useState } from 'react'
@@ -17,7 +17,7 @@ const DrawerCart = ({ handleOpenDrawer }) => {
         JSON.parse(localStorage.cakes).reduce((totalSum, cake) => {
           return (totalSum +=
             Number(
-              [...cakesList, ...smallCakes][cake.id - 1][
+              [...cakesList, ...smallCakes, ...pieceCakes][cake.id - 1][
                 cake.size === 'big' ? 'priceBig' : 'price'
               ],
             ) * Number(cake.count))

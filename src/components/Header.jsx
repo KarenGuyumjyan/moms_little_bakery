@@ -9,7 +9,6 @@ import { useCounter } from '@/utils/CounterContext'
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
   const { updateCount, count } = useCounter()
   const router = useRouter()
   const pathname = usePathname()
@@ -31,27 +30,11 @@ const Header = () => {
         behavior: 'smooth',
       })
     }, 100)
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
   }, [])
 
   return (
     <>
-      <div
-        className={`fixed top-0 w-full z-10 py-4 flex justify-between items-center px-4 sm:px-8 md:justify-around transition-all duration-500 opacity-100 ${
-          isScrolled || openDrawer
-            ? 'bg-purple-50 '
-            : 'bg-purple-50 min-[470px]:bg-transparent'
-        }`}
-      >
+      <div className="fixed top-0 w-full z-10 py-4 flex justify-between items-center px-4 sm:px-8 md:justify-around transition-all duration-500 opacity-100 bg-purple-50">
         {openDrawer && <DrawerCart handleOpenDrawer={handleOpenDrawer} />}
         <Image
           src='/moms_logo.png'

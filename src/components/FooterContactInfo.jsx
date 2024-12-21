@@ -3,12 +3,12 @@ import Link from 'next/link'
 
 const contactInfoContent = [
   {
-    title: '33 Tumanyan St',
+    title: 'Москва, проспект Андропова, 22.',
     icon: <ICONS.PositionIcon />,
     href: 'https://maps.app.goo.gl/b4zcFBe4E3Cm84iX9',
   },
   {
-    title: '+374 77 303030',
+    title: '+7 916 111-30-30',
     icon: <ICONS.PhoneIcon />,
     tag: 'tel',
   },

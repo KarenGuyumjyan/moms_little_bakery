@@ -11,7 +11,7 @@ const ServicesSection = () => {
   ]
 
   return (
-    <div className='w-full px-4 sm:px-8 md:px-16 lg:px-32 pb-12 flex flex-col lg:flex-row justify-between gap-8 lg:gap-14'>
+    <div className='w-full px-4 sm:px-8 md:px-16 lg:px-32 pb-12 flex flex-col lg:flex-row justify-between gap-8 items-center lg:gap-14'>
       <div className='flex flex-col gap-4 lg:w-1/2'>
         <p className='text-3xl sm:text-4xl lg:text-5xl'>Наш Ассортимент</p>
         <p className='text-base sm:text-lg'>
@@ -34,16 +34,14 @@ const ServicesSection = () => {
           ))}
         </div>
       </div>
-      <div className='flex justify-center lg:w-1/2'>
-        <Image
-          src='/Home.jpg'
-          alt='Services'
-          width={550}
-          height={300}
-          priority
-          className='rounded-xl '
-        />
-      </div>
+      <Image
+        src='/Home.jpg'
+        alt='Services'
+        width={550}
+        height={300}
+        priority
+        className='rounded-xl flex justify-center lg:w-1/2 h-fit'
+      />
     </div>
   )
 }

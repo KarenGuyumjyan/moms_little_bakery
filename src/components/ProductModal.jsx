@@ -3,17 +3,17 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useCounter } from '@/utils/CounterContext'
 import { togleNewCake } from '@/utils/togleNewCake'
-import { Plus, ShoppingCart } from 'lucide-react'
+import { ArrowBigLeft, ArrowBigRight, Plus } from 'lucide-react'
 
 const ProductModal = ({ modalData, closeModal }) => {
-  // const [count, setCount] = useState(1)
   const [size, setSize] = useState('small')
+  const [currentImage, setCurrentImage] = useState('first')
+  const [animating, setAnimating] = useState(false)
   const modalRef = useRef(null)
   const { updateCount } = useCounter()
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
-
     return () => {
       document.body.style.overflow = 'auto'
     }
@@ -38,6 +38,15 @@ const ProductModal = ({ modalData, closeModal }) => {
     }
   }, [])
 
+  const toggleImage = () => {
+    if (animating) return
+    setAnimating(true)
+    setTimeout(() => {
+      setCurrentImage((prev) => (prev === 'first' ? 'second' : 'first'))
+      setAnimating(false)
+    }, 300) // Animation duration
+  }
+
   return (
     <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
       <div
@@ -50,16 +59,59 @@ const ProductModal = ({ modalData, closeModal }) => {
         >
           &times;
         </button>
-        <div className='w-full h-64 sm:h-96 rounded-lg overflow-hidden relative'>
-          <Image
-            src={modalData.image}
-            alt={modalData.title}
-            layout='intrinsic'
-            width={500}
-            height={500}
-            objectFit='cover'
-            className='w-full h-full object-cover absolute sm:-top-10 -top-24'
-          />
+        <div className='relative w-full h-72 sm:h-96 rounded-lg overflow-hidden'>
+          <div className='relative w-full h-full '>
+            <Image
+              src={modalData.image}
+              alt={modalData.title}
+              layout='fill'
+              objectFit='cover'
+              objectPosition='center 35%'
+              className={`absolute inset-0 transition-all duration-500 ${
+                currentImage === 'first'
+                  ? 'opacity-100 scale-100'
+                  : 'opacity-0 scale-95'
+              }`}
+            />
+            {modalData.secondImage && (
+              <Image
+                src={modalData.secondImage}
+                alt={modalData.title}
+                layout='fill'
+                objectFit='cover'
+                objectPosition='center 10%'
+                className={`absolute inset-0 transition-all duration-500 ${
+                  currentImage === 'second'
+                    ? 'opacity-100 scale-100'
+                    : 'opacity-0 scale-95'
+                } top-10`}
+              />
+            )}
+          </div>
+          {modalData.secondImage && (
+            <div>
+              <button
+                onClick={toggleImage}
+                disabled={currentImage === 'second'}
+                className='absolute top-1/2 transform -translate-y-1/2 text-white text-xl bg-black bg-opacity-30 rounded-full p-2 hover:bg-opacity-75 transition right-2'
+              >
+                <ArrowBigRight
+                  size={20}
+                  color={currentImage === 'first' ? 'white' : 'gray'}
+                />
+              </button>
+              <button
+                onClick={toggleImage}
+                disabled={currentImage === 'first'}
+                className='absolute top-1/2 transform -translate-y-1/2 text-white text-xl bg-black bg-opacity-30 rounded-full p-2 hover:bg-opacity-75 transition left-2'
+              >
+                <ArrowBigLeft
+                  size={20}
+                  color={currentImage === 'second' ? 'white' : 'gray'}
+                />
+              </button>
+            </div>
+          )}
         </div>
         <h3 className='text-3xl font-semibold mt-4 text-center'>
           {modalData.title}
@@ -68,15 +120,11 @@ const ProductModal = ({ modalData, closeModal }) => {
           <div className='flex justify-around'>
             <div className='flex flex-col items-center'>
               <p>вес</p>
-              <p>230 г</p>
+              <p>{modalData.weight}</p>
             </div>
             <div className='flex flex-col items-center'>
               <p>куски</p>
-              <p>12</p>
-            </div>
-            <div className='flex flex-col items-center'>
-              <p>ккал</p>
-              <p>120</p>
+              <p>{modalData.portion}</p>
             </div>
           </div>
         </div>
@@ -117,7 +165,6 @@ const ProductModal = ({ modalData, closeModal }) => {
           </button>
         </div>
       </div>
-      <div className='absolute top-10 left-0 right-0 z-40 sm:hidden'></div>
     </div>
   )
 }
