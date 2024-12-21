@@ -123,7 +123,7 @@ const ProductModal = ({ modalData, closeModal }) => {
               <p>{modalData.weight}</p>
             </div>
             <div className='flex flex-col items-center'>
-              <p>куски</p>
+              <p>порция</p>
               <p>{modalData.portion}</p>
             </div>
           </div>

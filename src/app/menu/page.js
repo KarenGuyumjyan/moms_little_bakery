@@ -97,7 +97,7 @@ const cakesListSection = () => {
                     alt={product.title}
                     width={600}
                     height={400}
-                    className='w-full h-auto rounded-t-lg object-cover max-h-64 sm:max-h-max'
+                    className='w-full h-auto rounded-t-lg object-cover max-h-72 object-[center_32%] sm:max-h-max'
                     priority
                   />
                   {/* <div className='absolute bottom-4 left-0 right-0 text-center text-black p-2 rounded-lg mx-4'>

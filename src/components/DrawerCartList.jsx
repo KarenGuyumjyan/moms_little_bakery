@@ -6,7 +6,7 @@ const DrawerCartList = ({removeCakeFromBag, getTotalPrice}) => {
   return (
     <div className='flex flex-col gap-4'>
       {localStorage.getItem('cakes') &&
-        JSON.parse(localStorage.cakes).map((cake, index) => (
+        JSON.parse(localStorage.cakes).map((cake) => (
           <DrawerCartItem
             key={cake.id}
             cake={allCakes[cake.id-1]}

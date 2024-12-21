@@ -2,7 +2,7 @@
 import Card from '@/components/Card'
 import ProductModal from './ProductModal'
 import { useState } from 'react'
-import { cakesList } from '@/utils/constants'
+import { cakesList, popularCakesList } from '@/utils/constants'
 
 const PopularCakes = () => {
   const [modalData, setModalData] = useState(null)
@@ -19,9 +19,10 @@ const PopularCakes = () => {
     <>
       <p className='text-3xl sm:text-4xl lg:text-5xl'>Торты</p>
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  sm:gap-6 lg:gap-8 px-4 sm:px-8 pb-12'>
-        {cakesList.map((cake, index) => (
-          <Card key={index} cake={cake} openModal={openModal} />
-        ))}
+        {cakesList.map((cake, index) => {
+          if (popularCakesList.includes(cake.id))
+            return <Card key={index} cake={cake} openModal={openModal} />
+        })}
       </div>
       {modalData && (
         <ProductModal modalData={modalData} closeModal={closeModal} />

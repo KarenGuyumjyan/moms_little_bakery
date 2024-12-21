@@ -5,7 +5,7 @@ const contactInfoContent = [
   {
     title: 'Москва, проспект Андропова, 22.',
     icon: <ICONS.PositionIcon />,
-    href: 'https://maps.app.goo.gl/b4zcFBe4E3Cm84iX9',
+    href: 'https://maps.app.goo.gl/wyFWwUEcTKZ8XnQ36',
   },
   {
     title: '+7 916 111-30-30',
