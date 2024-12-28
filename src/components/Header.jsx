@@ -1,21 +1,24 @@
 'use client'
 import { NAV_LINKS } from '@/utils/constants'
+import { useCounter } from '@/utils/CounterContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import DrawerCart from './DrawerCart'
-import { useCounter } from '@/utils/CounterContext'
+import SubmitForm from './SubmitForm'
 
 const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false)
+  const [modalForm, setModalForm] = useState(false)
+
   const { updateCount, count } = useCounter()
   const router = useRouter()
   const pathname = usePathname()
 
-  const handleOpenDrawer = () => {
+  const handleOpenDrawer = (modal) => {
     setOpenDrawer((prev) => !prev)
-    if (!openDrawer) {
+    if (!openDrawer || !modal) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = 'auto'
@@ -34,8 +37,14 @@ const Header = () => {
 
   return (
     <>
-      <div className="fixed top-0 w-full z-10 py-4 flex justify-between items-center px-4 sm:px-8 md:justify-around transition-all duration-500 opacity-100 bg-purple-50">
-        {openDrawer && <DrawerCart handleOpenDrawer={handleOpenDrawer} />}
+      <div className='fixed top-0 w-full z-10 py-4 flex justify-between items-center px-4 sm:px-8 md:justify-around transition-all duration-500 opacity-100 bg-purple-50'>
+        {openDrawer && (
+          <DrawerCart
+            handleOpenDrawer={handleOpenDrawer}
+            setModalForm={setModalForm}
+          />
+        )}
+        {modalForm && <SubmitForm closeModal={setModalForm} />}
         <Image
           src='/moms_logo.png'
           alt="Mom's Little Bakery"

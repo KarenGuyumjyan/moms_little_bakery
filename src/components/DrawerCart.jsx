@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import DrawerCartList from './DrawerCartList'
 import DrawerHeader from './DrawerHeader'
 
-const DrawerCart = ({ handleOpenDrawer }) => {
+const DrawerCart = ({ handleOpenDrawer, setModalForm }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
   const { updateCount } = useCounter()
@@ -38,11 +38,16 @@ const DrawerCart = ({ handleOpenDrawer }) => {
     return () => setIsVisible(false)
   }, [])
 
-  const togleDrawer = () => {
+  const togleDrawer = (modal) => {
     setIsVisible(false)
     setTimeout(() => {
-      handleOpenDrawer()
+      handleOpenDrawer(modal)
     }, 300)
+  }
+
+  const handleOpenForm =  () => {
+    togleDrawer(false)
+    setModalForm(true)
   }
 
   return (
@@ -70,6 +75,7 @@ const DrawerCart = ({ handleOpenDrawer }) => {
           </div>
           <button
             disabled={false}
+            onClick={handleOpenForm}
             className='w-full py-4 rounded-2xl mt-3 transition text-white bg-pink-300 hover:bg-pink-400 active:bg-pink-500 disabled:bg-slate-300 cursor-pointer'
           >
             Оформить заказ

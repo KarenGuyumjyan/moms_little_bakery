@@ -12,13 +12,6 @@ const ProductModal = ({ modalData, closeModal }) => {
   const modalRef = useRef(null)
   const { updateCount } = useCounter()
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = 'auto'
-    }
-  }, [])
-
   const handleClickOutside = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       closeModal()
@@ -32,8 +25,10 @@ const ProductModal = ({ modalData, closeModal }) => {
   }
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden'
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
+      document.body.style.overflow = 'auto'
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
@@ -44,7 +39,7 @@ const ProductModal = ({ modalData, closeModal }) => {
     setTimeout(() => {
       setCurrentImage((prev) => (prev === 'first' ? 'second' : 'first'))
       setAnimating(false)
-    }, 300) // Animation duration
+    }, 300)
   }
 
   return (
