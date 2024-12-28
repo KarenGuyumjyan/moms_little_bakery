@@ -16,8 +16,8 @@
     "@pbe/react-yandex-maps": "^1.2.5",
     "lucide-react": "^0.468.0",
     "next": "15.0.1",
-    "react": "19.0.0-rc-69d4b800-20241021",
-    "react-dom": "19.0.0-rc-69d4b800-20241021"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "gh-pages": "^6.2.0",
