@@ -109,11 +109,11 @@ const SubmitForm = ({ closeModal }) => {
       const orderList = cakesFromStorage
         .map((cake) => {
           const cakeDetails = allCakes[cake.id - 1]
-          return `\n🍰 Торт: ${cakeDetails?.title}\nРазмер: ${
-            cake.size === 'big' ? ' - Большой' : ' - Стандартный'
-          }\nКоличество: ${cake.count}`
+          return `\n\t\t\t\t\t 🍰 Торт: ${cakeDetails?.title}\n\t\t\t\t\t Размер: ${
+            cakeDetails.priceBig ? cake.size === 'big' ? ' - Большой' : ' - Стандартный' : ' - Кусок'
+          }\n\t\t\t\t\t Количество: ${cake.count}`
         })
-        .join('\n\n')
+        .join('\n')
 
       const botMessage = `
       🛒 Новый заказ:
@@ -125,12 +125,10 @@ const SubmitForm = ({ closeModal }) => {
         🔔 Домофон: ${formData.intercom || '—'}
         🛗 Этаж: ${formData.floor || '—'}
         💬 Комментарий: ${formData.comment || '—'}
-    
-    🎂 Список заказов:
-        ${orderList}
+        \n🎂 Список заказов: ${orderList}
       `
 
-      const botToken = '7622763019:AAFoJap8vUIHBedrKNQWbvfjDEcrFgMWQ-s'
+      const botToken = '7622763019:AAFm44TZoPCtD04NfZBkWynO_UIP9oMfrJk'
       const chatId = '1437110900'
 
       const response = await fetch(
@@ -148,7 +146,7 @@ const SubmitForm = ({ closeModal }) => {
       )
 
       if (!response.ok) {
-        throw new Error('Failed to send notification to Telegram')
+        throw new Error(response, 'Failed to send notification to Telegram')
       }
 
       console.log('Notification sent to Telegram successfully')
@@ -164,6 +162,7 @@ const SubmitForm = ({ closeModal }) => {
 
     const newErrors = {}
     const phoneNumberDigits = formData.phoneNumber.replace(/\D/g, '')
+    console.log(phoneNumberDigits, 'phoneNumberDigits')
 
     if (!formData.address.trim()) {
       newErrors.address = '"Адрес" является обязательным полем'
