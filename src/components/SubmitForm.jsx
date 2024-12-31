@@ -2,9 +2,12 @@
 import SimpleInput from '@/common/SimpleImput'
 import { useEffect, useRef, useState } from 'react'
 import YandexMap from './YandexMap'
+import { cakesList, pieceCakes, smallCakes } from '@/utils/constants'
+import { useCounter } from '@/utils/CounterContext'
 
 const SubmitForm = ({ closeModal }) => {
-  const [mapCenter, setMapCenter] = useState([55.751244, 37.618423])
+  const { reset } = useCounter()
+  const [mapCenter, setMapCenter] = useState([55.682651, 37.661922])
 
   const [formData, setFormData] = useState({
     address: '',
@@ -89,11 +92,70 @@ const SubmitForm = ({ closeModal }) => {
 
     if (field === 'address') {
       fetchSuggestions(value)
-      console.log(value, 'vv')
       if (value.length > 7) {
-        console.log('fffff');
         fetchCoordinates(value)
       }
+    }
+  }
+
+  const sendNotifications = async (formData) => {
+    const allCakes = [...cakesList, ...smallCakes, ...pieceCakes]
+
+    try {
+      const cakesFromStorage = localStorage.getItem('cakes')
+        ? JSON.parse(localStorage.getItem('cakes'))
+        : []
+
+      const orderList = cakesFromStorage
+        .map((cake) => {
+          const cakeDetails = allCakes[cake.id - 1]
+          return `\n🍰 Торт: ${cakeDetails?.title}\nРазмер: ${
+            cake.size === 'big' ? ' - Большой' : ' - Стандартный'
+          }\nКоличество: ${cake.count}`
+        })
+        .join('\n\n')
+
+      const botMessage = `
+      🛒 Новый заказ:
+        📍 Адрес: ${formData.address}
+        📞 Телефон: ${formData.phoneNumber}
+        👤 Имя: ${formData.name}
+        🏢 Квартира: ${formData.apartment || '—'}
+        🚪 Подъезд: ${formData.entrance || '—'}
+        🔔 Домофон: ${formData.intercom || '—'}
+        🛗 Этаж: ${formData.floor || '—'}
+        💬 Комментарий: ${formData.comment || '—'}
+    
+    🎂 Список заказов:
+        ${orderList}
+      `
+
+      const botToken = '7622763019:AAFoJap8vUIHBedrKNQWbvfjDEcrFgMWQ-s'
+      const chatId = '1437110900'
+
+      const response = await fetch(
+        `https://api.telegram.org/bot${botToken}/sendMessage`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: botMessage,
+          }),
+        },
+      )
+
+      if (!response.ok) {
+        throw new Error('Failed to send notification to Telegram')
+      }
+
+      console.log('Notification sent to Telegram successfully')
+      localStorage.setItem('cakes', JSON.stringify([]))
+      reset()
+    } catch (error) {
+      console.error('Error sending notification:', error)
     }
   }
 
@@ -102,7 +164,6 @@ const SubmitForm = ({ closeModal }) => {
 
     const newErrors = {}
     const phoneNumberDigits = formData.phoneNumber.replace(/\D/g, '')
-    console.log(phoneNumberDigits, 'phoneNumberDigits')
 
     if (!formData.address.trim()) {
       newErrors.address = '"Адрес" является обязательным полем'
@@ -131,8 +192,11 @@ const SubmitForm = ({ closeModal }) => {
           submitedForm[key] = formData[key]
         }
       }
-    }),
-      closeModal()
+    })
+
+    sendNotifications(submitedForm)
+
+    closeModal()
   }
 
   return (

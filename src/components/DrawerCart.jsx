@@ -9,7 +9,7 @@ import DrawerHeader from './DrawerHeader'
 const DrawerCart = ({ handleOpenDrawer, setModalForm }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
-  const { updateCount } = useCounter()
+  const { count, updateCount } = useCounter()
 
   const getTotalPrice = () => {
     if (localStorage.getItem('cakes')) {
@@ -74,7 +74,7 @@ const DrawerCart = ({ handleOpenDrawer, setModalForm }) => {
             <b>{totalPrice}₽</b>
           </div>
           <button
-            disabled={false}
+            disabled={!count}
             onClick={handleOpenForm}
             className='w-full py-4 rounded-2xl mt-3 transition text-white bg-pink-300 hover:bg-pink-400 active:bg-pink-500 disabled:bg-slate-300 cursor-pointer'
           >

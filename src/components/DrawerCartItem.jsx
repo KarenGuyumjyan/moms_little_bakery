@@ -41,7 +41,7 @@ const DrawerCartItem = ({
       </div>
       <div className='w-20 h-20 rounded-lg overflow-hidden relative'>
         <Image
-          src={cake.image ?? '/Cake_2.jpg'}
+          src={cake.image}
           alt={cake.title}
           layout='intrinsic'
           width={500}

@@ -62,7 +62,7 @@ const cakesListSection = () => {
             <h1 className='text-xl md:text-2xl font-bold'>
               {
                 sectionsList.find((section) => section.id === selectedSection)
-                  .name 
+                  .name
               }
             </h1>
             <div className='flex justify-center md:justify-end gap-4'>
@@ -107,7 +107,7 @@ const cakesListSection = () => {
                     </p>
                   </div> */}
                 </div>
-                <div className='p-4 text-center transition transform delay-50 hover:bg-zinc-200 active:bg-zinc-300'>
+                <div className='p-4 h-full text-center transition transform delay-50 hover:bg-zinc-200 active:bg-zinc-300'>
                   {/* <button
                     onClick={() => handleAddCake(product)}
                     className='bg-primary text-black px-4 py-2 rounded-full hover:bg-primary-dark transition '
@@ -119,7 +119,7 @@ const cakesListSection = () => {
                     className='w-full bg-primary font-semibold text-black rounded-full hover:bg-primary-dark transition flex gap-2 items-center justify-center'
                   >
                     {product.title}
-                    <ShoppingCart size={20}/>
+                    <ShoppingCart size={20} />
                   </button>
                 </div>
               </div>
