@@ -4,7 +4,7 @@ export const NAV_LINKS = [
   { href: '/about', label: 'О Нас' },
 ]
 
-export const popularCakesList = [3, 4, 5, 9, 10, 11, 12, 15]
+export const popularCakesList = [3, 4, 5, 9, 10, 12, 13, 16]
 
 export const cakesList = [
   {

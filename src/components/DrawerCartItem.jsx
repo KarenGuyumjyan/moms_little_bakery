@@ -22,7 +22,7 @@ const DrawerCartItem = ({
     updateCount()
   }
 
-  const renoveCake = () => {
+  const removeCake = () => {
     if (counter > 1) {
       setCounter(counter - 1)
       togleNewCake(cake, size, false)
@@ -66,7 +66,7 @@ const DrawerCartItem = ({
           </span>
           <button
             className='px-[9px] rounded-full bg-gray-300 cursor-pointer'
-            onClick={renoveCake}
+            onClick={removeCake}
           >
             -
           </button>

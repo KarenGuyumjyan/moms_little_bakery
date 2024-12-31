@@ -7,6 +7,7 @@ import { cakesList, pieceCakes, smallCakes } from '@/utils/constants'
 import { togleNewCake } from '@/utils/togleNewCake'
 import { useCounter } from '@/utils/CounterContext'
 import { ShoppingCart } from 'lucide-react'
+import { toast } from 'react-toastify'
 
 const cakesListSection = () => {
   const { updateCount } = useCounter()
@@ -52,6 +53,16 @@ const cakesListSection = () => {
   const handleAddCake = (cake) => {
     togleNewCake(cake)
     updateCount()
+
+    toast.success(`${cake.title} успешно добавлено!`, {
+      position: 'top-right',
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
   }
 
   return (

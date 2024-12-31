@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useCounter } from '@/utils/CounterContext'
 import { togleNewCake } from '@/utils/togleNewCake'
 import { ArrowBigLeft, ArrowBigRight, Plus } from 'lucide-react'
+import { toast } from 'react-toastify'
 
 const ProductModal = ({ modalData, closeModal }) => {
   const [size, setSize] = useState('small')
@@ -21,6 +22,17 @@ const ProductModal = ({ modalData, closeModal }) => {
   const handleAddCake = () => {
     togleNewCake(modalData, size)
     updateCount()
+
+    toast.success(`${modalData.title} успешно добавлено!`, {
+      position: 'top-right',
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+
     closeModal()
   }
 

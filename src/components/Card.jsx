@@ -1,8 +1,8 @@
 'use client'
 import { useCounter } from '@/utils/CounterContext'
 import { togleNewCake } from '@/utils/togleNewCake'
-import { ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
+import { toast } from 'react-toastify'
 
 const Card = function ({ cake, openModal }) {
   const { updateCount } = useCounter()
@@ -10,6 +10,16 @@ const Card = function ({ cake, openModal }) {
   const handleAddCake = (cake) => {
     togleNewCake(cake)
     updateCount()
+
+    toast.success(`${cake.title} успешно добавлено!`, {
+      position: 'top-right',
+      autoClose: 1500,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
   }
 
   const handleOpenModal = (e) => {

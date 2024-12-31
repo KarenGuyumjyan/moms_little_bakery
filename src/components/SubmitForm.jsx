@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import YandexMap from './YandexMap'
 import { cakesList, pieceCakes, smallCakes } from '@/utils/constants'
 import { useCounter } from '@/utils/CounterContext'
+import { toast } from 'react-toastify'
 
 const SubmitForm = ({ closeModal }) => {
   const { reset } = useCounter()
@@ -109,11 +110,18 @@ const SubmitForm = ({ closeModal }) => {
       const orderList = cakesFromStorage
         .map((cake) => {
           const cakeDetails = allCakes[cake.id - 1]
-          return `\n\t\t\t\t\t 🍰 Торт: ${cakeDetails?.title}\n\t\t\t\t\t Размер: ${
-            cakeDetails.priceBig ? cake.size === 'big' ? ' - Большой' : ' - Стандартный' : ' - Кусок'
-          }\n\t\t\t\t\t Количество: ${cake.count}`
+          return `🍰 Торт: ${cakeDetails?.title}
+          Размер: ${
+            cakeDetails.priceBig
+              ? cake.size === 'big'
+                ? ' - Большой'
+                : ' - Стандартный'
+              : ' - Кусок'
+          }
+          Количество: ${cake.count}
+          `
         })
-        .join('\n')
+        .join('')
 
       const botMessage = `
       🛒 Новый заказ:
@@ -125,7 +133,8 @@ const SubmitForm = ({ closeModal }) => {
         🔔 Домофон: ${formData.intercom || '—'}
         🛗 Этаж: ${formData.floor || '—'}
         💬 Комментарий: ${formData.comment || '—'}
-        \n🎂 Список заказов: ${orderList}
+        \n🎂 Список заказов: 
+        ${orderList}
       `
 
       const botToken = '7622763019:AAFm44TZoPCtD04NfZBkWynO_UIP9oMfrJk'
@@ -149,11 +158,30 @@ const SubmitForm = ({ closeModal }) => {
         throw new Error(response, 'Failed to send notification to Telegram')
       }
 
-      console.log('Notification sent to Telegram successfully')
+      toast.success('Ваш заказ оформлен, спасибо!', {
+        position: 'top-right',
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
+
       localStorage.setItem('cakes', JSON.stringify([]))
       reset()
+
+      closeModal()
     } catch (error) {
-      console.error('Error sending notification:', error)
+      toast.error('Что-то пошло не так. Попробуйте еще раз.', {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      })
     }
   }
 
@@ -194,8 +222,6 @@ const SubmitForm = ({ closeModal }) => {
     })
 
     sendNotifications(submitedForm)
-
-    closeModal()
   }
 
   return (
